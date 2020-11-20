@@ -5,6 +5,12 @@ import {
   POST_USER_REQUEST,
   POST_USER_SUCCESS,
   POST_USER_FAULIER,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAULIER,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAULIER,
 } from "./actionType";
 
 const initState = {
@@ -40,6 +46,35 @@ export default (state = initState, { type, payload }) => {
         ...state,
       };
     case POST_USER_FAULIER:
+      return {
+        ...state,
+      };
+    case DELETE_USER_REQUEST:
+      return {
+        ...state,
+      };
+    case DELETE_USER_SUCCESS:
+      console.log("DELETE Success: ", payload);
+      const userId = payload.id;
+      const newStudents = state.student.filter((item) => item.id !== userId);
+      return {
+        ...state,
+        student: newStudents,
+      };
+    case DELETE_USER_FAULIER:
+      return {
+        ...state,
+      };
+    case UPDATE_USER_REQUEST:
+      return {
+        ...state,
+      };
+    case UPDATE_USER_SUCCESS:
+      console.log("UPDATE Success: ", payload);
+      return {
+        ...state,
+      };
+    case UPDATE_USER_FAULIER:
       return {
         ...state,
       };

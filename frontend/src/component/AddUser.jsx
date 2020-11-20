@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { postUsersData } from "../redux/actionCreator";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiTextField-root": {
@@ -15,8 +17,14 @@ const useStyles = makeStyles((theme) => ({
 export default function AddUser() {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleOnSubmit = (data) => {
-    console.log("DATA: ", data);
+    console.log("DATA Fun: ", data);
+    const { fname, group, city, email, avatar } = data;
+    console.log(fname);
+    dispatch(postUsersData({ fname, group, city, email, avatar }));
+    history.goBack();
   };
   return (
     <>
@@ -27,7 +35,7 @@ export default function AddUser() {
           variant="outlined"
           size="small"
           name="fname"
-          ref={register}
+          inputRef={register}
         />
         <br />
         <TextField
@@ -36,7 +44,7 @@ export default function AddUser() {
           variant="outlined"
           size="small"
           name="group"
-          ref={register}
+          inputRef={register}
         />
         <br />
         <TextField
@@ -45,7 +53,7 @@ export default function AddUser() {
           variant="outlined"
           size="small"
           name="city"
-          ref={register}
+          inputRef={register}
         />
         <br />
         <TextField
@@ -54,7 +62,7 @@ export default function AddUser() {
           variant="outlined"
           size="small"
           name="email"
-          ref={register}
+          inputRef={register}
         />
         <br />
         <TextField
@@ -63,7 +71,7 @@ export default function AddUser() {
           variant="outlined"
           size="small"
           name="avatar"
-          ref={register}
+          inputRef={register}
         />
         <br />
         <TextField
@@ -72,7 +80,7 @@ export default function AddUser() {
           variant="outlined"
           size="small"
           name="gender"
-          ref={register}
+          inputRef={register}
         />
         <br />
         <Button type="submit" variant="outlined" color="secondary">

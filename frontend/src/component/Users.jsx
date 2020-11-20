@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Box, Button, IconButton } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersData } from "../redux/actionCreator";
+import {
+  getUsersData,
+  deleteUsersData,
+  updateUsersData,
+} from "../redux/actionCreator";
 import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router-dom";
 
@@ -25,8 +29,8 @@ const useStyle = makeStyles({
   container: {
     display: "inline-flex",
     flexWrap: "wrap",
-    gap: 12,
-    justifyContent: "center",
+    gap: 16,
+    justifyContent: "space-around",
     marginBottom: 16,
   },
   avtarImg: {
@@ -94,6 +98,26 @@ export default function Users() {
     history.push("/adduser");
   };
 
+  const handleDeleteButton = (id) => {
+    console.log("USER ID: ", id);
+    dispatch(deleteUsersData(id));
+  };
+
+  const handleEditButton = (id, fname, group, city, email, avatar, gender) => {
+    history.push({
+      pathname: "/updateuser",
+      state: {
+        id: id,
+        fname: fname,
+        group: group,
+        city: city,
+        email: email,
+        avatar: avatar,
+        gender: gender,
+      },
+    });
+  };
+
   return (
     <div className={classes.container}>
       <Card className={classes.root}>
@@ -116,10 +140,28 @@ export default function Users() {
                 {item.email}
               </p>
               <div className={classes.container}>
-                <Button variant="outlined" color="primary">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() =>
+                    handleEditButton(
+                      item.id,
+                      item.name,
+                      item.group,
+                      item.city,
+                      item.email,
+                      item.avatar,
+                      item.gender
+                    )
+                  }
+                >
                   Edit
                 </Button>
-                <Button variant="contained" className={classes.deleteBtn}>
+                <Button
+                  variant="contained"
+                  className={classes.deleteBtn}
+                  onClick={() => handleDeleteButton(item.id)}
+                >
                   Delete
                 </Button>
               </div>
