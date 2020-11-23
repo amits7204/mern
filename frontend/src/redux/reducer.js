@@ -16,6 +16,8 @@ import {
 const initState = {
   isLoading: true,
   student: [],
+  isUpdate: false,
+  isAdd: false,
 };
 
 export default (state = initState, { type, payload }) => {
@@ -44,6 +46,7 @@ export default (state = initState, { type, payload }) => {
       console.log("Post Success: ", payload);
       return {
         ...state,
+        isAdd: true,
       };
     case POST_USER_FAULIER:
       return {
@@ -73,6 +76,7 @@ export default (state = initState, { type, payload }) => {
       console.log("UPDATE Success: ", payload);
       return {
         ...state,
+        isUpdate: true,
       };
     case UPDATE_USER_FAULIER:
       return {

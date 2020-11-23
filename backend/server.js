@@ -25,7 +25,7 @@ app.post("/users/add", (req, res) => {
 
 app.put("/users/update/:id", (req, res) => {
   const id = req.params.id;
-  console.log("UPDATE USER ID: ", id);
+  console.log("UPDATE ID: ", id);
   const index = students.findIndex((student) => {
     return student.id == Number.parseInt(id);
   });

@@ -103,7 +103,7 @@ const updateUsersData = (payload) => (dispatch) => {
   dispatch(updateUserRequest());
   axios
     .put("http://localhost:8080/users/update/" + payload.id, {
-      name: payload.fname,
+      fname: payload.fname,
       group: payload.group,
       city: payload.city,
       email: payload.email,

@@ -1,7 +1,7 @@
 const students = [
   {
     id: "1",
-    name: "Arjun k Prasad",
+    fname: "Arjun k Prasad",
     group: "O+ve",
     email: "arjun1237.kp@gmail.com",
     city: "Bangalore",
@@ -11,7 +11,7 @@ const students = [
   },
   {
     id: "2",
-    name: "Akash Pathak",
+    fname: "Akash Pathak",
     group: "AB +ve",
     email: "pathakvikash9211@gmail.com",
     city: "Patna",
@@ -21,7 +21,7 @@ const students = [
   },
   {
     id: "3",
-    name: "Omkarnath Parida",
+    fname: "Omkarnath Parida",
     group: "O+ve",
     email: "pomkarnath98@gmail.com",
     city: "Bhubaneswar",
@@ -31,7 +31,7 @@ const students = [
   },
   {
     id: "4",
-    name: "Revanth Raghu",
+    fname: "Revanth Raghu",
     group: "Z",
     email: "revabob@gmail.com",
     city: "Bangalore",
@@ -41,7 +41,7 @@ const students = [
   },
   {
     id: "5",
-    name: "Manish Kumar",
+    fname: "Manish Kumar",
     group: "B+ve",
     email: "manish1771999@gmail.com",
     city: "Durgapur",
@@ -51,7 +51,7 @@ const students = [
   },
   {
     id: "6",
-    name: "Misaal Ambasta",
+    fname: "Misaal Ambasta",
     group: "O+ve",
     email: "misaalambasta@gmail.com",
     city: "Kolkata",
@@ -61,7 +61,7 @@ const students = [
   },
   {
     id: "7",
-    name: "Alok Kothiyal",
+    fname: "Alok Kothiyal",
     group: "B+",
     email: "alokothiyal007@gmail.com",
     city: "Dehradun",
@@ -71,7 +71,7 @@ const students = [
   },
   {
     id: "8",
-    name: "Sai Nihal",
+    fname: "Sai Nihal",
     group: "O+ve",
     email: "sainihal13@gmail.com",
     city: "Hyderabad",
@@ -81,7 +81,7 @@ const students = [
   },
   {
     id: "9",
-    name: "Soumitha Bhaskara",
+    fname: "Soumitha Bhaskara",
     group: "O+ve",
     email: "soumithaalpineti@gmail.com",
     city: "Chittoor",
@@ -91,7 +91,7 @@ const students = [
   },
   {
     id: "10",
-    name: "Aayushi Shah",
+    fname: "Aayushi Shah",
     group: "O+ve",
     email: "aayu.shah711@gmail.com",
     city: "Mumbai",
@@ -101,7 +101,7 @@ const students = [
   },
   {
     id: "11",
-    name: "Kritika Tripathi",
+    fname: "Kritika Tripathi",
     group: "O +ve",
     email: "kritikaktripathi@gmail.com",
     city: "Bangalore",
@@ -111,7 +111,7 @@ const students = [
   },
   {
     id: "12",
-    name: "Shubham Kumar",
+    fname: "Shubham Kumar",
     group: "A +ve",
     email: "shubhamkumar.aceit12@gmail.com",
     city: "Patna",
@@ -121,7 +121,7 @@ const students = [
   },
   {
     id: "13",
-    name: "Soundarya M",
+    fname: "Soundarya M",
     group: "B+ve",
     email: "soundaryamecse@gmail.com",
     city: "Bangalore",
@@ -131,7 +131,7 @@ const students = [
   },
   {
     id: "14",
-    name: "Sheelu Krishnatrayi",
+    fname: "Sheelu Krishnatrayi",
     group: "O - ve",
     email: "sheelukumari27@gmail.com",
     city: "Bangalore",
@@ -141,7 +141,7 @@ const students = [
   },
   {
     id: "15",
-    name: "Shreyas S",
+    fname: "Shreyas S",
     group: "AB +ve",
     email: "shreyshriyan@gmail.com",
     city: "Bangalore",
@@ -151,7 +151,7 @@ const students = [
   },
   {
     id: "16",
-    name: "kavya chowdary",
+    fname: "kavya chowdary",
     group: "B +ve",
     email: "malimpatikavya@gmail.com",
     city: "Hyderabad",
@@ -161,7 +161,7 @@ const students = [
   },
   {
     id: "17",
-    name: "Ashish Raj",
+    fname: "Ashish Raj",
     group: "A+",
     email: "mr.ashishrajyadav@gmail.com",
     city: "Bhopal",
@@ -171,7 +171,7 @@ const students = [
   },
   {
     id: "18",
-    name: "Manideep",
+    fname: "Manideep",
     group: "O+ve",
     email: "pmanideepnaidu@gmail.com",
     city: "Hyderabad",
@@ -181,7 +181,7 @@ const students = [
   },
   {
     id: "19",
-    name: "Rajeswari",
+    fname: "Rajeswari",
     group: "O+ve",
     email: "rajilechrame@gmail.com",
     city: "Bangalore",
@@ -190,7 +190,7 @@ const students = [
   },
   {
     id: "20",
-    name: "Richa Singh",
+    fname: "Richa Singh",
     group: "O+ve",
     email: "singhricha0724@gmail.com",
     city: "Noida",
@@ -200,7 +200,7 @@ const students = [
   },
   {
     id: "21",
-    name: "Vinay Gupta",
+    fname: "Vinay Gupta",
     group: "B+ve",
     email: "vinaytest75@gmail.com",
     city: "Delhi",
@@ -210,7 +210,7 @@ const students = [
   },
   {
     id: "22",
-    name: "Falak",
+    fname: "Falak",
     group: "A+ve",
     email: "falakthackar@gmail.com",
     city: "Pune",
@@ -220,7 +220,7 @@ const students = [
   },
   {
     id: "23",
-    name: "Aravindan",
+    fname: "Aravindan",
     group: "O+ve",
     email: "aravind.sakthi@outlook.com",
     city: "Chennai",
@@ -230,7 +230,7 @@ const students = [
   },
   {
     id: "24",
-    name: "Keshav Mahawar",
+    fname: "Keshav Mahawar",
     group: "B-ve",
     email: "kes.mahawar@gmail.com",
     city: "Alwar",
@@ -240,7 +240,7 @@ const students = [
   },
   {
     id: "25",
-    name: "Gouthami Kyatham",
+    fname: "Gouthami Kyatham",
     group: "B +ve",
     email: "gouthamikyatham4@gmail.com",
     city: "Karimnagar",
@@ -250,7 +250,7 @@ const students = [
   },
   {
     id: "26",
-    name: "Lakshmi Korukanti",
+    fname: "Lakshmi Korukanti",
     group: "0+ve",
     email: "luckyrao4e8@gmail.com",
     city: "Karimnagar",
@@ -260,7 +260,7 @@ const students = [
   },
   {
     id: "27",
-    name: "Gargi Das",
+    fname: "Gargi Das",
     group: "O-ve",
     email: "dasgargi100@gmail.com",
     city: "Kolkata",
@@ -270,7 +270,7 @@ const students = [
   },
   {
     id: "28",
-    name: "Ritesh Ranjan",
+    fname: "Ritesh Ranjan",
     group: "B+ve",
     email: "riteshranjan1997@gmail.com",
     city: "Ranchi",
@@ -280,7 +280,7 @@ const students = [
   },
   {
     id: "29",
-    name: "Suhail Malik",
+    fname: "Suhail Malik",
     group: "AB+ve",
     email: "devmsuhail@gmail.com",
     city: "Moradabad",

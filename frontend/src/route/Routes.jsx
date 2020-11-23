@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import AddUser from "../component/AddUser";
+import UsersCreateandEdit from "../component/UsersCreateandEdit";
 import Users from "../component/Users";
-import UpdateUser from "../component/UpdateUser";
+import Home from "../component/Home";
 
 export default function Routes() {
   return (
     <>
       <Switch>
         <Route path="/" exact component={Users} />
-        <Route path="/adduser" exact component={AddUser} />
-        <Route path="/updateuser" exact component={UpdateUser} />
+        <Route path="/modifie" exact component={UsersCreateandEdit} />
+        <Route path="/modifie/:id" exact component={UsersCreateandEdit} />
       </Switch>
     </>
   );
