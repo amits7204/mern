@@ -3,8 +3,10 @@ const { v4: uuidv4 } = require("uuid");
 const app = express();
 const students = require("./student");
 const cors = require("cors");
+
 app.use(cors());
 app.use(express.json());
+
 app.get("/users", (req, res) => {
   res.status(200).json(students);
 });
