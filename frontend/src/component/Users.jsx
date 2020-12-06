@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Box, Button, IconButton, Typography } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "@material-ui/lab/Pagination";
 import {
   getUsersData,
   deleteUsersData,
@@ -15,7 +16,8 @@ import CustomeNavbar from "./CustomeNavbar";
 const useStyle = makeStyles({
   root: {
     flexGrow: 1,
-    width: 275,
+    height: 320,
+    width: 550,
     borderRadius: 8,
     position: "relative",
     boxShadow:
@@ -30,11 +32,14 @@ const useStyle = makeStyles({
     margin: "-25px 0 0 -25px",
   },
   container: {
-    display: "inline-flex",
-    flexWrap: "wrap",
+    display: "flex",
     gap: 16,
     justifyContent: "center",
     marginBottom: 16,
+    marginTop: 20,
+  },
+  gridcontainer: {
+    gap: 16,
     marginTop: 20,
   },
   avtarImg: {
@@ -105,11 +110,19 @@ export default function Users() {
   const classes = useStyle();
   const dispatch = useDispatch();
   const selector = useSelector((state) => state.app.student);
+  const { isAdd, isUpdate, isLoading, count } = useSelector(
+    (state) => state.app
+  );
   console.log("SELECTOR: ", selector[selector.length - 1]);
+  const [active, setActive] = useState(1);
+  const totalPages = Math.ceil(count / 2);
+  // let offSet = (active - 1) * 2;
+  // console.log("OFFSET: ", offSet);
   const history = useHistory();
-
+  const limit = 2;
+  const value = 1;
   useEffect(() => {
-    dispatch(getUsersData());
+    dispatch(getUsersData({ value, limit }));
     console.log("USEEFFECT");
   }, []);
 
@@ -136,72 +149,101 @@ export default function Users() {
       },
     });
   };
-
+  const handlePagination = (e, value) => {
+    setActive(value);
+    console.log("PAGE VALUE: ", active);
+    dispatch(getUsersData({ value, limit }));
+  };
   return (
-    <div className={classes.container}>
-      {/* <CustomeNavbar /> */}
-      <Grid className={classes.root} spacing={2} sm={3} lg={2} md={3}>
-        <IconButton className={classes.addButton}>
-          <AddIcon htmlColor="#d1c4e9" onClick={handleOnSubmit} />
-        </IconButton>
-      </Grid>
-      {selector.length > 0 ? (
-        selector.map((item) => {
-          return (
-            <Grid
-              className={classes.root}
-              md={3}
-              spacing={2}
-              sm={3}
-              lg={2}
-              key={item.id}
-            >
-              <Box className={classes.boxContainer}>{item.group}</Box>
-              <img src={item.avatar} alt="avtar" className={classes.avtarImg} />
-              <p className={classes.userName}>{item.fname}</p>
-              <p className={classes.cityName}>
-                <small>{item.city}</small>
-              </p>
-              <Typography noWrap className={classes.contact}>
-                <span className={classes.spanText}>Email:</span>
-                {item.email}
-              </Typography>
-              <div className={classes.container}>
-                <Button
-                  variant="outlined"
-                  className={classes.editBtn}
-                  onClick={() =>
-                    handleEditButton(
-                      item.id,
-                      item.fname,
-                      item.group,
-                      item.city,
-                      item.email,
-                      item.avatar,
-                      item.gender
-                    )
-                  }
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="contained"
-                  className={classes.deleteBtn}
-                  onClick={() => handleDeleteButton(item.id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </Grid>
-          );
-        })
-      ) : (
-        <Grid className={classes.root}>
+    <Grid justify="center" alignItems="center" container>
+      <Grid
+        container
+        spacing={3}
+        justify="center"
+        alignItems="center"
+        className={classes.gridcontainer}
+      >
+        {/* <CustomeNavbar /> */}
+        <Grid
+          className={classes.root}
+          item={true}
+          container
+          xs={8}
+          sm={3}
+          lg={2}
+          md={3}
+        >
           <IconButton className={classes.addButton}>
-            <AddIcon onClick={handleOnSubmit} />
+            <AddIcon htmlColor="#d1c4e9" onClick={handleOnSubmit} />
           </IconButton>
         </Grid>
-      )}
-    </div>
+        {!isLoading ? (
+          selector.map((item) => {
+            return (
+              <Grid
+                className={classes.root}
+                item={true}
+                sm={3}
+                xs={8}
+                md={3}
+                lg={2}
+                key={item.id}
+              >
+                <Box className={classes.boxContainer}>{item.group}</Box>
+                <img
+                  src={item.avatar}
+                  alt="avtar"
+                  className={classes.avtarImg}
+                />
+                <p className={classes.userName}>{item.fname}</p>
+                <p className={classes.cityName}>
+                  <small>{item.city}</small>
+                </p>
+                <Typography noWrap className={classes.contact}>
+                  <span className={classes.spanText}>Email:</span>
+                  {item.email}
+                </Typography>
+                <div className={classes.container}>
+                  <Button
+                    variant="outlined"
+                    className={classes.editBtn}
+                    onClick={() =>
+                      handleEditButton(
+                        item._id,
+                        item.fname,
+                        item.group,
+                        item.city,
+                        item.email,
+                        item.avatar,
+                        item.gender
+                      )
+                    }
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    className={classes.deleteBtn}
+                    onClick={() => handleDeleteButton(item._id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </Grid>
+            );
+          })
+        ) : (
+          <p>Loading...</p>
+        )}
+      </Grid>
+      <div style={{ marginTop: "40px" }}>
+        <Pagination
+          page={active}
+          count={totalPages}
+          onChange={handlePagination}
+          color="secondary"
+        />
+      </div>
+    </Grid>
   );
 }

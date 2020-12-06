@@ -62,10 +62,17 @@ const updateUserFaulier = (payload) => {
   return { type: UPDATE_USER_FAULIER, payload };
 };
 
-const getUsersData = () => (dispatch) => {
+const getUsersData = (payload) => (dispatch) => {
+  console.log("GET PAYLOAD: ", payload.value);
   dispatch(getUserRequest());
-  axios
-    .get("http://localhost:8080/users")
+  axios({
+    url: "http://localhost:8080/users",
+    method: "get",
+    params: {
+      page: payload.value,
+      limit: payload.limit,
+    },
+  })
     .then((res) => res)
     .then((res) => dispatch(getUserSuccess(res.data)))
     .catch((error) => dispatch(getUserFaulier(error)));
@@ -92,9 +99,9 @@ const deleteUsersData = (id) => (dispatch) => {
   console.log("ID: ", id);
   dispatch(deleteUserRequest());
   axios
-    .delete(`http://localhost:8080/users/students/${id}`)
+    .delete(`http://localhost:8080/api/student/${id}`)
     .then((res) => res.data)
-    .then((res) => dispatch(deleteUserSuccess(res)))
+    .then((res) => dispatch(deleteUserSuccess(id)))
     .catch((error) => dispatch(deleteUserFaulier(error)));
 };
 
@@ -102,7 +109,7 @@ const updateUsersData = (payload) => (dispatch) => {
   console.log("UPDATE: ", payload);
   dispatch(updateUserRequest());
   axios
-    .put("http://localhost:8080/users/update/" + payload.id, {
+    .put(`http://localhost:8080/api/student/update/${payload.id}`, {
       fname: payload.fname,
       group: payload.group,
       city: payload.city,

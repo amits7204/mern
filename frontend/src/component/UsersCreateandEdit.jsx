@@ -11,7 +11,26 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: 200,
       marginTop: 20,
+      // border: "1px solid  #e8f5e9",
+      // borderRadius: 6,
+      backgroundColor: "#a5d6a7",
+      borderRadius: 6,
     },
+  },
+  btn: {
+    border: "1px solid #263238",
+    borderRadius: 4,
+    fontWeight: "bold",
+    fontSize: 12,
+    color: "#263238",
+  },
+  card: {
+    backgroundColor: "#a5d6a7",
+    borderRadius: 6,
+    padding: 15,
+    width: 500,
+    margin: "auto",
+    marginTop: 40,
   },
 }));
 
@@ -20,14 +39,10 @@ export default function UsersCreateandEdit(state) {
   console.log("Props: ", state);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isAdd, isUpdate } = useSelector((state) => state.app);
+  const { isAdd, isUpdate, isFailed } = useSelector((state) => state.app);
 
   useEffect(() => {
-    if (isAdd && state.location.state === undefined) {
-      history.goBack();
-    }
-
-    if (isUpdate && state.location.state !== undefined) {
+    if (isAdd) {
       history.goBack();
     }
   });
@@ -40,6 +55,7 @@ export default function UsersCreateandEdit(state) {
       dispatch(
         updateUsersData({ id, fname, group, city, email, avatar, gender })
       );
+      history.goBack();
     }
   };
 
@@ -47,100 +63,116 @@ export default function UsersCreateandEdit(state) {
 
   const handleOnSubmit = (data) => {
     console.log("DATA Fun: ", data);
-    const { fname, group, city, email, avatar } = data;
-    console.log(fname);
-    dispatch(postUsersData({ fname, group, city, email, avatar }));
+    const { fname, group, city, email, avatar, gender } = data;
+    console.log("fname:", data);
+    dispatch(postUsersData({ fname, group, city, email, avatar, gender }));
   };
   return (
     <>
-      <form
-        className={classes.root}
-        onSubmit={
-          state.location.state !== undefined
-            ? handleSubmit(handleOnEditSubmit)
-            : handleSubmit(handleOnSubmit)
-        }
-      >
-        <TextField
-          label="Name"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          name="fname"
-          defaultValue={
-            state.location.state !== undefined ? state.location.state.fname : ""
-          }
-          inputRef={register}
-        />
-        <br />
-        <TextField
-          label="Group"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          name="group"
-          defaultValue={
-            state.location.state !== undefined ? state.location.state.group : ""
-          }
-          inputRef={register}
-        />
-        <br />
-        <TextField
-          label="city"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          name="city"
-          defaultValue={
-            state.location.state !== undefined ? state.location.state.city : ""
-          }
-          inputRef={register}
-        />
-        <br />
-        <TextField
-          label="Email"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          name="email"
-          defaultValue={
-            state.location.state !== undefined ? state.location.state.email : ""
-          }
-          inputRef={register}
-        />
-        <br />
-        <TextField
-          label="Avatar"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          name="avatar"
-          defaultValue={
+      <div className={classes.card}>
+        <form
+          className={classes.root}
+          onSubmit={
             state.location.state !== undefined
-              ? state.location.state.avatar
-              : ""
+              ? handleSubmit(handleOnEditSubmit)
+              : handleSubmit(handleOnSubmit)
           }
-          inputRef={register}
-        />
-        <br />
-        <TextField
-          label="Gender"
-          id="outlined-size-small"
-          variant="outlined"
-          size="small"
-          name="gender"
-          defaultValue={
-            state.location.state !== undefined
-              ? state.location.state.gender
-              : ""
-          }
-          inputRef={register}
-        />
-        <br />
-        <Button type="submit" variant="outlined" color="secondary">
-          Submit
-        </Button>
-      </form>
+        >
+          <TextField
+            label="Name"
+            id="outlined-size-small"
+            variant="outlined"
+            size="small"
+            required={true}
+            name="fname"
+            defaultValue={
+              state.location.state !== undefined
+                ? state.location.state.fname
+                : ""
+            }
+            inputRef={register}
+          />
+          <TextField
+            label="Group"
+            id="outlined-size-small"
+            variant="outlined"
+            size="small"
+            name="group"
+            required={true}
+            defaultValue={
+              state.location.state !== undefined
+                ? state.location.state.group
+                : ""
+            }
+            inputRef={register}
+          />
+          <TextField
+            label="city"
+            id="outlined-size-small"
+            variant="outlined"
+            size="small"
+            name="city"
+            required={true}
+            defaultValue={
+              state.location.state !== undefined
+                ? state.location.state.city
+                : ""
+            }
+            inputRef={register}
+          />
+          <TextField
+            label="Email"
+            id="outlined-size-small"
+            variant="outlined"
+            size="small"
+            name="email"
+            required={true}
+            defaultValue={
+              state.location.state !== undefined
+                ? state.location.state.email
+                : ""
+            }
+            inputRef={register}
+          />
+          <TextField
+            label="Avatar"
+            id="outlined-size-small"
+            variant="outlined"
+            size="small"
+            name="avatar"
+            required={true}
+            defaultValue={
+              state.location.state !== undefined
+                ? state.location.state.avatar
+                : ""
+            }
+            inputRef={register}
+          />
+          <TextField
+            label="Gender"
+            id="outlined-size-small"
+            variant="outlined"
+            size="small"
+            required={true}
+            name="gender"
+            defaultValue={
+              state.location.state !== undefined
+                ? state.location.state.gender
+                : ""
+            }
+            inputRef={register}
+          />
+          <br />
+          {isFailed ? (
+            <p>{""}</p>
+          ) : (
+            <p style={{ color: "red" }}>Something is wrong</p>
+          )}
+          <Button type="submit" variant="outlined" className={classes.btn}>
+            {state.location.state !== undefined ? "Update" : "Add"}
+          </Button>
+        </form>
+      </div>
     </>
   );
 }

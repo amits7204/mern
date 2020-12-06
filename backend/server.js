@@ -1,65 +1,97 @@
 const express = require("express");
-const { v4: uuidv4 } = require("uuid");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const studentsRoutes = require("./router/student");
+
+dotenv.config();
 const app = express();
-const students = require("./student");
+
+// const students = require("./models/students");
 const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
+// console.log("STUDENT ROUTES: ", studentsRoutes);
+app.use("/users", studentsRoutes);
 
-app.get("/users", (req, res) => {
-  res.status(200).json(students);
-});
-
-app.post("/users/add", (req, res) => {
-  const id = uuidv4();
-  const fname = req.body.fname;
-  const group = req.body.group;
-  const city = req.body.city;
-  const email = req.body.email;
-  const avatar = req.body.avatar;
-  const gender = req.body.gender;
-
-  const studentObj = { id, fname, group, email, city, avatar, gender };
-  students.push(studentObj);
-  res.status(200).json({ message: "Student added successfully" });
-});
-
-app.put("/users/update/:id", (req, res) => {
-  const id = req.params.id;
-  console.log("UPDATE ID: ", id);
-  const index = students.findIndex((student) => {
-    return student.id == Number.parseInt(id);
-  });
-  if (index >= 0) {
-    const updateStudent = students[index];
-    updateStudent.fname = req.body.fname;
-    updateStudent.group = req.body.group;
-    updateStudent.city = req.body.city;
-    updateStudent.email = req.body.email;
-    updateStudent.avatar = req.body.avatar;
-    updateStudent.gender = req.body.gender;
-    res.status(200).json(updateStudent);
-  } else {
-    res.status(400).json({ error: "updation of student failed" });
+mongoose.connect(
+  process.env.ATLAS_URI,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    console.log("the database is connected: ", err);
   }
-});
+);
 
-app.delete("/users/students/:id", (req, res) => {
-  const id = req.params.id;
-  console.log("ID: ", JSON.stringify(req.body));
-  const index = students.findIndex((student) => {
-    return student.id == Number.parseInt(id);
-  });
-  if (index >= 0) {
-    const std = students[index];
-    students.splice(index, 1);
-    res.status(200).json(std);
-  } else {
-    res.status(404).json({ error: "Error deleting the students" });
-  }
-});
+// const db = mongoose.connection;
+// db.once("open", async () => {
+//   if ((await students.countDocuments().exec()) > 0) {
+//     return;
+//   }
+//   students
+//     .insertMany(students)
+//     .then(() => res.json("users added successfully"))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.post("/users/add", (req, res) => {
+//   const { fname, group, email, city, avatar, gender } = req.body;
+
+//   const newStudent = new students({
+//     fname,
+//     group,
+//     email,
+//     city,
+//     avatar,
+//     gender,
+//   });
+//   newStudent
+//     .save()
+//     .then(() => res.json("Student Added Successfully"))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
+
+// app.get("/users", paginatedResults(students), (req, res) => {
+//   res.json(res.pagination);
+// });
+
+// function paginatedResults(model) {
+//   return async (req, res, next) => {
+//     const page = parseInt(req.query.page);
+//     const limit = parseInt(req.query.limit);
+//     console.log("PAge: ", page);
+//     const startIndex = (page - 1) * limit;
+//     const endIndex = page * limit;
+
+//     const results = {};
+//     console.log("AWAIT: ", await model.countDocuments().exec());
+//     if (endIndex < (await model.countDocuments().exec())) {
+//       results.next = {
+//         page: page,
+//         limit: limit,
+//       };
+//     }
+
+//     if (startIndex > 0) {
+//       results.prev = {
+//         page: page - 1,
+//         limit: limit,
+//       };
+//     }
+//     results.count = await model.countDocuments().exec();
+//     try {
+//       results.current = await model.find().limit(limit).skip(startIndex).exec();
+//       res.pagination = results;
+//       next();
+//     } catch (e) {
+//       res.status(500).json({ message: e.message });
+//     }
+//   };
+// }
 
 app.listen(8080, () => {
-  console.log("the server is up and running");
+  console.log("server is up and running");
 });

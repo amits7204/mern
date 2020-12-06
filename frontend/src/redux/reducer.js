@@ -18,6 +18,8 @@ const initState = {
   student: [],
   isUpdate: false,
   isAdd: false,
+  isFailed: true,
+  count: 0,
 };
 
 export default (state = initState, { type, payload }) => {
@@ -32,7 +34,8 @@ export default (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        student: payload,
+        student: payload.current,
+        count: payload.count,
       };
     case GET_USER_FAULIER:
       return {
@@ -51,6 +54,7 @@ export default (state = initState, { type, payload }) => {
     case POST_USER_FAULIER:
       return {
         ...state,
+        isFailed: false,
       };
     case DELETE_USER_REQUEST:
       return {
@@ -58,8 +62,8 @@ export default (state = initState, { type, payload }) => {
       };
     case DELETE_USER_SUCCESS:
       console.log("DELETE Success: ", payload);
-      const userId = payload.id;
-      const newStudents = state.student.filter((item) => item.id !== userId);
+      const userId = payload;
+      const newStudents = state.student.filter((item) => item._id !== userId);
       return {
         ...state,
         student: newStudents,
